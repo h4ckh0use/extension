@@ -1,4 +1,5 @@
 console.log("yeet")
+console.log(`currently on page ${getStrippedUrl()}`)
 
 function getStrippedUrl() {
 	const activeURL = window.location.href.match(/^[\w]+:\/{2}([\w\.:-]+)/)

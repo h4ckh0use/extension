@@ -1,7 +1,15 @@
-var eventPage = new (function() {
-	function init() {
+chrome.runtime.onConnect.addListener((port) => {
+	console.assert(port.name == "onBadWebsite");
+	port.onMessage.addListener((msg) => {
+		console.log(`on website ${msg.url}`)
+		sendToWebApp(msg.url)
+	});
+});
 
-	}
-
-	init();
-})();
+function sendToWebApp(url) {
+	chrome.tabs.getAllInWindow(null, (tabs) => {
+		tabs.forEach(tab => {
+			console.log(tab)
+		})
+	});
+}

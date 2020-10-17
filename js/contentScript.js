@@ -11,3 +11,10 @@ function getStrippedUrl() {
 	// no url?
 	return ''
 }
+
+const port = chrome.runtime.connect({ name: "onBadWebsite" })
+function isOnBadWebsite(websiteURL) {
+	port.postMessage({ url: websiteURL })
+}
+
+isOnBadWebsite(getStrippedUrl())

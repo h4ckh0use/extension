@@ -21,13 +21,13 @@
   },
 
   "background": {
-    "scripts": ["js/eventPage.js"],
+    "scripts": ["js/background.js"],
     "persistent": false
   },
 
   "content_scripts": [
     {
-      "matches": ["*://www.google.com/*"],
+      "matches": ["*://*/*"],
       "css": ["css/main.css"],
       "js": ["js/vendor/jquery.min.js", "js/contentScript.js"]
     }

@@ -15,8 +15,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 function sendToWebApp() {
 	if (webAppTabId != -1) {
-		chrome.tabs.sendMessage(webAppTabId, { greeting: "hello" }, (response) => {
-			console.log(response);
-		});
+		console.log('triggering emergency meeting')
+		// send message for emergency meeting
+		chrome.tabs.sendMessage(webAppTabId, {});
 	}
 }

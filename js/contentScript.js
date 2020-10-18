@@ -1,9 +1,6 @@
-console.log("yeet")
 console.log(`currently on page ${getStrippedUrl()}`)
 
-const port = chrome.runtime.connect({ name: "onBadWebsite" })
-
-checkIfBlocked()
+const blockedSites = ['facebook.com', 'twitter.com', 'instagram.com', 'youtube.com', 'reddit.com']
 
 function getStrippedUrl() {
 	const activeURL = window.location.href.match(/^[\w]+:\/{2}([\w\.:-]+)/)
@@ -17,14 +14,36 @@ function getStrippedUrl() {
 }
 
 function checkIfBlocked() {
-	const blockedSites = ['facebook.com', 'twitter.com', 'instagram.com', 'youtube.com', 'reddit.com']
-	blockedSites.forEach(function(element) {
-		if (getStrippedUrl().includes(element)) {
-			isOnBadWebsite(getStrippedUrl())
+	const url = getStrippedUrl()
+	if (onWebApp()) {
+		chrome.runtime.sendMessage({ url: url, onWebApp: true});
+		return
+	}
+
+	blockedSites.forEach((element) => {
+		if (url.includes(element)) {
+			isOnBadWebsite(url)
 		}
 	})
 }
 
 function isOnBadWebsite(websiteURL) {
-	port.postMessage({ url: websiteURL })
+	chrome.runtime.sendMessage({ url: websiteURL, onWebApp: false });
+}
+
+// receive emergency meeting messages
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	console.log('EMERGENCY MEETING')
+	window.postMessage({ type: "from_extension", text: "" }, "*");
+});
+
+// check blockage on page load
+document.addEventListener("DOMContentLoaded", () => {
+	checkIfBlocked()
+	window.addEventListener('focus', checkIfBlocked)
+});
+
+// check if current page is web app
+function onWebApp() {
+	return !!document.getElementById("imHackHouse")
 }

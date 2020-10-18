@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Sample",
+  "name": "spooky name generator",
   "description": "",
   "version": "1.0",
 
@@ -9,15 +9,6 @@
     "16": "img/icon16.png",
     "48": "img/icon48.png",
     "128": "img/icon128.png"
-  },
-
-  "browser_action": {
-    "default_icon": {
-      "19": "img/icon19.png",
-      "38": "img/icon38.png"
-    },
-    "default_title": "Sample",
-    "default_popup": "popup.html"
   },
 
   "background": {
@@ -29,7 +20,8 @@
     {
       "matches": ["*://*/*"],
       "css": ["css/main.css"],
-      "js": ["js/vendor/jquery.min.js", "js/contentScript.js"]
+      "js": ["js/contentScript.js"],
+      "run_at": "document_start"
     }
   ],
 

@@ -1,9 +1,7 @@
 var webAppTabId = -1;
 
 // listen for new pages
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	console.log(`on website ${request.url}`)
-	
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {	
 	if (request.onWebApp) {
 		webAppTabId = sender.tab.id
 	} else {
@@ -13,10 +11,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	sendResponse({ status: "ok" });
 });
 
-function sendToWebApp() {
+function sendToWebApp(url) {
 	if (webAppTabId != -1) {
-		console.log('triggering emergency meeting')
+		console.log(`triggering emergency meeting: ${url}`)
 		// send message for emergency meeting
-		chrome.tabs.sendMessage(webAppTabId, {});
+		chrome.tabs.sendMessage(webAppTabId, {url: url});
 	}
 }

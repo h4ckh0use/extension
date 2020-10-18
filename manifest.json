@@ -2,13 +2,11 @@
   "manifest_version": 2,
 
   "name": "spooky name generator",
-  "description": "",
+  "description": "now who's the impostor",
   "version": "1.0",
 
   "icons": {
-    "16": "img/icon16.png",
-    "48": "img/icon48.png",
-    "128": "img/icon128.png"
+    "128": "img/logo.png"
   },
 
   "background": {
@@ -19,7 +17,6 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "css": ["css/main.css"],
       "js": ["js/contentScript.js"],
       "run_at": "document_start"
     }

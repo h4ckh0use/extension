@@ -34,7 +34,7 @@ function isOnBadWebsite(websiteURL) {
 // receive emergency meeting messages
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	console.log('EMERGENCY MEETING')
-	window.postMessage({ type: "from_extension", text: "" }, "*");
+	window.postMessage({ type: "from_extension", url: getStrippedUrl() }, "*");
 });
 
 // check blockage on page load

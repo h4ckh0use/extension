@@ -1,15 +1,22 @@
-chrome.runtime.onConnect.addListener((port) => {
-	console.assert(port.name == "onBadWebsite");
-	port.onMessage.addListener((msg) => {
-		console.log(`on website ${msg.url}`)
-		sendToWebApp(msg.url)
-	});
+var webAppTabId = -1;
+
+// listen for new pages
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	console.log(`on website ${request.url}`)
+	
+	if (request.onWebApp) {
+		webAppTabId = sender.tab.id
+	} else {
+		sendToWebApp(request.url)
+	}
+
+	sendResponse({ status: "ok" });
 });
 
-function sendToWebApp(url) {
-	chrome.tabs.getAllInWindow(null, (tabs) => {
-		tabs.forEach(tab => {
-			console.log(tab)
-		})
-	});
+function sendToWebApp() {
+	if (webAppTabId != -1) {
+		chrome.tabs.sendMessage(webAppTabId, { greeting: "hello" }, (response) => {
+			console.log(response);
+		});
+	}
 }

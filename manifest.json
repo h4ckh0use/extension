@@ -11,15 +11,6 @@
     "128": "img/icon128.png"
   },
 
-  "browser_action": {
-    "default_icon": {
-      "19": "img/icon19.png",
-      "38": "img/icon38.png"
-    },
-    "default_title": "Sample",
-    "default_popup": "popup.html"
-  },
-
   "background": {
     "scripts": ["js/background.js"],
     "persistent": true
@@ -29,7 +20,8 @@
     {
       "matches": ["*://*/*"],
       "css": ["css/main.css"],
-      "js": ["js/vendor/jquery.min.js", "js/contentScript.js"]
+      "js": ["js/contentScript.js"],
+      "run_at": "document_start"
     }
   ],
 

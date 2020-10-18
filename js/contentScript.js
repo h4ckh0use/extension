@@ -1,8 +1,6 @@
 console.log("yeet")
 console.log(`currently on page ${getStrippedUrl()}`)
 
-const port = chrome.runtime.connect({ name: "onBadWebsite" })
-
 checkIfBlocked()
 
 function getStrippedUrl() {
@@ -26,5 +24,20 @@ function checkIfBlocked() {
 }
 
 function isOnBadWebsite(websiteURL) {
-	port.postMessage({ url: websiteURL })
+	chrome.runtime.sendMessage({ url: websiteURL, onWebApp: onWebApp() });
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	console.log('EMERGENCY MEETING')
+	window.postMessage({ type: "from_extension", text: "" }, "*");
+	sendResponse({ farewell: "goodbye" });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+	isOnBadWebsite(getStrippedUrl())
+});
+
+// check if current page is web app
+function onWebApp() {
+	return !!document.getElementById("imHackHouse")
 }

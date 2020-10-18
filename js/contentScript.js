@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	console.log('EMERGENCY MEETING')
 	var emergencySound = new Audio(chrome.runtime.getURL("/emergencySound.mp3"));
 	emergencySound.play();
-	window.postMessage({ type: "from_extension", url: getStrippedUrl() }, "*");
+	window.postMessage({ type: "from_extension", url: request.url }, "*");
 });
 
 // check blockage on page load

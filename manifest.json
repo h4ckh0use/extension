@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "spooky name generator",
-  "description": "now who's the impostor",
+  "name": "impostor",
+  "description": "now who's the impostor? companion extension for https://imposter.tech/",
   "version": "1.0",
 
   "icons": {
